@@ -19,7 +19,7 @@ public class EnemyVision : MonoBehaviour
     {
         body = GetComponentInParent<EnemyBehaviour>();
         sightOffset = GetComponentInChildren<WindZone>().gameObject;
-        indicator1.transform.position = sightOffset.transform.position;
+        //indicator1.transform.position = sightOffset.transform.position;
     }
 
     // Update is called once per frame
@@ -28,7 +28,7 @@ public class EnemyVision : MonoBehaviour
         here = transform.position;
         there = body.player.transform.position;
 
-        indicator1.transform.position = sightOffset.transform.position;
+        //indicator1.transform.position = sightOffset.transform.position;
 
         RaycastHit2D hit = Physics2D.Raycast(sightOffset.transform.position, (there - here), Vector3.Distance(here, there));
         //print(transform.position + " // " + (here + (there - here) * 0.2f) + " // " +
@@ -37,7 +37,7 @@ public class EnemyVision : MonoBehaviour
         //indicator1.transform.position = here;
         if (hit.collider != null)
         {
-            indicator2.transform.position = hit.point;
+            //indicator2.transform.position = hit.point;
 
             if (hit.collider.gameObject.tag == "Player")
             {
@@ -49,9 +49,9 @@ public class EnemyVision : MonoBehaviour
                 else
                 {
                     lastKnownPos = there;
-                    indicator3.transform.position = lastKnownPos;
+                    //indicator3.transform.position = lastKnownPos;
                     futurePos = FuturePosition(1);
-                    indicator4.transform.position = futurePos;
+                    //indicator4.transform.position = futurePos;
                 }
             }
             if (hit.collider.gameObject.tag == "Wall" && body.State == EnemyState.Follow)
@@ -84,8 +84,8 @@ public class EnemyVision : MonoBehaviour
 
         if (hit.collider != null)
         {
-            print(hit.normal);
-            print(hit.collider.gameObject.tag);
+            //            print(hit.normal);
+            //            print(hit.collider.gameObject.tag);
             if (hit.collider.gameObject.tag == "Wall")
             {
                 futurePos = (hit.normal * 0.5f) + hit.point;
@@ -98,7 +98,6 @@ public class EnemyVision : MonoBehaviour
     }
     public bool LookForPlayer(Vector3 point)
     {
-
         RaycastHit2D hit = Physics2D.Raycast(sightOffset.transform.position, (point - here), Vector3.Distance(here, point));
 
         if (hit.collider != null)

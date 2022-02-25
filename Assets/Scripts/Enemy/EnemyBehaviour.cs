@@ -73,11 +73,11 @@ public class EnemyBehaviour : MonoBehaviour
                                 Vector2 temp = targetPos;
                                 targetPos = eyes.FuturePos;
                                 Vector3 norm = eyes.LookForWallNormal(targetPos, temp);
-                                print(targetPos + " 1");
+                                //                                print(targetPos + " 1");
                                 targetPos = norm;
                                 //targetPos.x += norm.x;
                                 //targetPos.y += norm.y;
-                                print(targetPos + " 2");
+                                //                                print(targetPos + " 2");
                             }
                             break;
                     }
@@ -203,7 +203,7 @@ public class EnemyBehaviour : MonoBehaviour
             case EnemyState.Follow:
                 print("State now follow");
                 state = EnemyState.Follow;
-                speed = 2.5f;
+                speed = 3.5f;
                 break;
             case EnemyState.Attack:
                 print("State now attack");
