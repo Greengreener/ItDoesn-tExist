@@ -20,7 +20,7 @@ public class EnemyBehaviour : MonoBehaviour
     Vector3 playerPos;
     Vector3 targetPos;
 
-    bool separated;
+    //bool separated;
     bool canMove;
     bool canAttack;
 
@@ -40,8 +40,9 @@ public class EnemyBehaviour : MonoBehaviour
         eyes = GetComponentInChildren<EnemyVision>();
         worldDoors = FindObjectOfType<Doors>();
         canMove = true;
+
     }
-    //Add door nodes
+    //Fix door nodes
     void FixedUpdate()
     {
         curPos = transform.position;
@@ -75,11 +76,7 @@ public class EnemyBehaviour : MonoBehaviour
                                 Vector2 temp = targetPos;
                                 targetPos = eyes.FuturePos;
                                 Vector3 norm = eyes.LookForWallNormal(targetPos, temp);
-                                //                                print(targetPos + " 1");
                                 targetPos = norm;
-                                //targetPos.x += norm.x;
-                                //targetPos.y += norm.y;
-                                //                                print(targetPos + " 2");
                             }
                             break;
                     }
@@ -90,44 +87,6 @@ public class EnemyBehaviour : MonoBehaviour
                 RotateFace(playerPos);
                 break;
         }
-        /*
-        switch (separated)
-        {
-            case false:
-                if (canMove == true)
-                {
-                    targetPos = WanderPos();
-                    canMove = false;
-                    //print("walking " + targetPos);
-                }
-                if (Vector3.Distance(targetPos, curPos) <= 0.2f && canMove == false)
-                {
-                    print("ping");
-                    canMove = true;
-                }
-                MoveVector(targetPos);
-                
-                    targetPos = player.transform.position;
-                    if (canMove)
-                        MoveVector(GetOffsetVector(curPos, targetPos, attackDistance));
-                    else if (!canMove)
-                        transform.position = transform.position;
-                        
-                //break;
-            case true:
-                if (canMove)
-        {
-            MoveVector(targetPos);
-            if (Vector3.Distance(curPos, targetPos) < 0.5f)
-                separated = false;
-        }
-        //break;
-    }
-        */
-
-        //if (Vector3.Distance(curPos, playerPos) * 1.1f == attackDistance * 1.1f & canAttack)
-        //  print("Attacked");
-        //RotateFace(playerPos);
 
         //Float check
         if (body.velocity.x <= -0.01f ||
@@ -168,13 +127,13 @@ public class EnemyBehaviour : MonoBehaviour
         }
         return temp[id].position;
     }
+    /*
     public void Bonk()
     {
         separated = true;
         targetPos = CheckClosestDoorway();
-        //print("Bonk");
     }
-
+    */
     Vector3 WanderPos()
     {
         Vector3 curPos = this.transform.position;
@@ -186,7 +145,11 @@ public class EnemyBehaviour : MonoBehaviour
         if (eyes.LookForWall(newPosition, transform.position) == true)
         {
             nextPos.transform.position = eyes.LookForWallNormal(newPosition, transform.position);
-            return eyes.LookForWallNormal(newPosition, transform.position);
+            newPosition = eyes.LookForWallNormal(newPosition, transform.position);
+            if (eyes.LookForWall(newPosition, transform.position) == true)
+                return eyes.LookForWallNormal(newPosition, transform.position);
+            else
+                return newPosition;
         }
         else
             return newPosition;
