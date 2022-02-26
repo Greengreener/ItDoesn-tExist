@@ -15,11 +15,15 @@ public class EnemyVision : MonoBehaviour
     Vector3 lastKnownPos;
     public Vector3 FuturePos { get { return futurePos; } }
     Vector3 futurePos;
+
+    int wallMask;
     void Start()
     {
         body = GetComponentInParent<EnemyBehaviour>();
         sightOffset = GetComponentInChildren<WindZone>().gameObject;
         //indicator1.transform.position = sightOffset.transform.position;
+        wallMask = LayerMask.NameToLayer("Wall");
+        print(wallMask);
     }
 
     // Update is called once per frame
@@ -64,13 +68,15 @@ public class EnemyVision : MonoBehaviour
 
     }
 
-    public bool LookForWall(Vector3 point)
+    public bool LookForWall(Vector3 point, Vector3 from)
     {
 
-        RaycastHit2D hit = Physics2D.Raycast(sightOffset.transform.position, (point - here), Vector3.Distance(here, point));
-
+        RaycastHit2D hit = Physics2D.Raycast(from, (point - from), Vector3.Distance(from, point), 1 << wallMask);
+        print("he");
         if (hit.collider != null)
         {
+            print("ping");
+            print(hit.collider.gameObject.tag);
             if (hit.collider.gameObject.tag == "Wall")
                 return true;
             else
@@ -80,12 +86,13 @@ public class EnemyVision : MonoBehaviour
     }
     public Vector2 LookForWallNormal(Vector2 point, Vector2 from)
     {
-        RaycastHit2D hit = Physics2D.Raycast(sightOffset.transform.position, (point - from), Vector3.Distance(from, point));
+        print("ha");
+        RaycastHit2D hit = Physics2D.Raycast(from, (point - from), Vector3.Distance(from, point), 1 << wallMask);
 
         if (hit.collider != null)
         {
             //            print(hit.normal);
-            //            print(hit.collider.gameObject.tag);
+            print(hit.collider.gameObject.tag);
             if (hit.collider.gameObject.tag == "Wall")
             {
                 futurePos = (hit.normal * 0.5f) + hit.point;

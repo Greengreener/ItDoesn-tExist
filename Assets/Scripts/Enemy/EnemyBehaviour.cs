@@ -27,6 +27,8 @@ public class EnemyBehaviour : MonoBehaviour
     public EnemyState State { get { return state; } }
     EnemyState state;
 
+    public GameObject nextPos;
+
     void Start()
     {
         player = FindObjectOfType<PlayerAttack>().gameObject;
@@ -180,8 +182,12 @@ public class EnemyBehaviour : MonoBehaviour
         float randDisY = Random.Range(1, 5);
         Vector3 newPosition = new Vector3(Random.Range(curPos.x - randDisX, curPos.x + randDisX), Random.Range(curPos.y - randDisY, curPos.y + randDisY));
         RotateFace(newPosition);
-        if (eyes.LookForWall(newPosition) == true)
-            return WanderPos();
+        nextPos.transform.position = newPosition;
+        if (eyes.LookForWall(newPosition, transform.position) == true)
+        {
+            nextPos.transform.position = eyes.LookForWallNormal(newPosition, transform.position);
+            return eyes.LookForWallNormal(newPosition, transform.position);
+        }
         else
             return newPosition;
     }
