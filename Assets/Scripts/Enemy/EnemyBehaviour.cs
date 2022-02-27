@@ -33,7 +33,7 @@ public class EnemyBehaviour : MonoBehaviour
     {
         player = FindObjectOfType<PlayerAttack>().gameObject;
         playerBody = player.GetComponent<Rigidbody2D>();
-        attackDistance = 0.75f;
+        attackDistance = 0.5f;
         speed = 1f;
         face = this.GetComponentsInChildren<Collider2D>()[1];
         body = GetComponent<Rigidbody2D>();
@@ -160,22 +160,22 @@ public class EnemyBehaviour : MonoBehaviour
         switch (inputState)
         {
             case EnemyState.Wander:
-                print("State now wander");
+                //print("State now wander");
                 state = EnemyState.Wander;
                 speed = 0.5f;
                 break;
             case EnemyState.Search:
-                print("State now search");
+                //print("State now search");
                 state = EnemyState.Search;
                 speed = 3.25f;
                 break;
             case EnemyState.Follow:
-                print("State now follow");
+                //print("State now follow");
                 state = EnemyState.Follow;
                 speed = 3.5f;
                 break;
             case EnemyState.Attack:
-                print("State now attack");
+                //print("State now attack");
                 state = EnemyState.Attack;
                 break;
         }

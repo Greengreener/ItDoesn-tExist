@@ -1,18 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SceneManagement : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Escape))
+            QuitGame();
     }
-
-    // Update is called once per frame
-    void Update()
+    //Changes scene based on index
+    public void LoadNewScene(int sceneIndex)
     {
-        
+        SceneManager.LoadScene(sceneIndex);
+    }
+    //Quits game
+    public void QuitGame()
+    {
+#if UNITY_EDITOR
+//Closes editor
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
+        Application.Quit();
     }
 }

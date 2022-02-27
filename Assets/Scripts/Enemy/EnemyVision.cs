@@ -6,10 +6,6 @@ public class EnemyVision : MonoBehaviour
 {
     EnemyBehaviour body;
     GameObject sightOffset;
-    public GameObject indicator1;
-    public GameObject indicator2;
-    public GameObject indicator3;
-    public GameObject indicator4;
     Vector3 here;
     Vector3 there;
     Vector3 lastKnownPos;
@@ -23,7 +19,7 @@ public class EnemyVision : MonoBehaviour
         sightOffset = GetComponentInChildren<WindZone>().gameObject;
         //indicator1.transform.position = sightOffset.transform.position;
         wallMask = LayerMask.NameToLayer("Wall");
-        print(wallMask);
+        //print(wallMask);
     }
 
     // Update is called once per frame
@@ -72,7 +68,7 @@ public class EnemyVision : MonoBehaviour
     {
 
         RaycastHit2D hit = Physics2D.Raycast(from, (point - from), Vector3.Distance(from, point), 1 << wallMask);
-        print("he");
+        //        print("he");
         if (hit.collider != null)
         {
             print("ping");
@@ -86,13 +82,13 @@ public class EnemyVision : MonoBehaviour
     }
     public Vector2 LookForWallNormal(Vector2 point, Vector2 from)
     {
-        print("ha");
+        //print("ha");
         RaycastHit2D hit = Physics2D.Raycast(from, (point - from), Vector3.Distance(from, point), 1 << wallMask);
 
         if (hit.collider != null)
         {
             //            print(hit.normal);
-            print(hit.collider.gameObject.tag);
+            //            print(hit.collider.gameObject.tag);
             if (hit.collider.gameObject.tag == "Wall")
             {
                 futurePos = (hit.normal * 0.5f) + hit.point;

@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        speed = 5f;
+        speed = 2.7f;
         canMove = true;
         rigidBody2D = GetComponent<Rigidbody2D>();
     }
