@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public bool CanMove { set => canMove = value; }
     bool canMove;
     float speed;
     Rigidbody2D rigidBody2D;
@@ -21,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     }
     void MovementDetection()
     {
+        rigidBody2D.velocity = new Vector2(0, 0);
         if (!canMove)
             return;
         else

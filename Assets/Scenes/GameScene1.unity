@@ -138,7 +138,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &14376268
 Transform:
   m_ObjectHideFlags: 0
@@ -216,10 +216,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2320939703367318438, guid: 2eac25b01cc7931438a578c5b616a334, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2320939704571732423, guid: 2eac25b01cc7931438a578c5b616a334, type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -627,6 +623,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tilePrefab: {fileID: 1987943376536086277, guid: c40d8b0ccba54d640a9c13735443d048, type: 3}
   startPos: {fileID: 1730453825}
+  rowLength: 40
+  columHeight: 20
 --- !u!1 &1730453824
 GameObject:
   m_ObjectHideFlags: 0

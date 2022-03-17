@@ -7,10 +7,9 @@ public class PlaceFloorTiles : MonoBehaviour
     public GameObject tilePrefab;
     public Transform startPos;
     Vector3 pos;
-    int rowLength = 40;
-    int columHeight = 20;
+    [SerializeField] int rowLength = 40;
+    [SerializeField] int columHeight = 20;
 
-    // Start is called before the first frame update
     void Start()
     {
 
@@ -26,11 +25,5 @@ public class PlaceFloorTiles : MonoBehaviour
                 Instantiate(tilePrefab, pos, Quaternion.identity);
             }
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 }
