@@ -16,7 +16,7 @@ public class EnemyVision : MonoBehaviour
     void Start()
     {
         body = GetComponentInParent<EnemyBehaviour>();
-        sightOffset = GetComponentInChildren<WindZone>().gameObject;
+        sightOffset = GetComponentInChildren<EnemyLocator>().gameObject;
         //indicator1.transform.position = sightOffset.transform.position;
         wallMask = LayerMask.NameToLayer("Wall");
         //print(wallMask);

@@ -9,6 +9,9 @@ public class PlayerAttack : MonoBehaviour
     public bool CanAttack { set => canAttack = value; }
     bool canAttack;
 
+    public float Damage { get => damage; }
+    float damage = 20;
+
     void Start()
     {
         animCont = FindObjectOfType<PlayerAnimationConroller>();
@@ -21,10 +24,7 @@ public class PlayerAttack : MonoBehaviour
     void AttackDetection()
     {
         if (Input.GetKeyDown(KeyCode.Mouse0) && canAttack)
-        {
             animCont.RunAttack();
-        }
-
         else return;
     }
 }

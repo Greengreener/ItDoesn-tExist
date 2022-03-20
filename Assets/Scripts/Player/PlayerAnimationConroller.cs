@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PlayerAnimationConroller : MonoBehaviour
@@ -8,6 +9,10 @@ public class PlayerAnimationConroller : MonoBehaviour
     PlayerAttack playerAttack;
     Rigidbody2D body;
     Animator animator;
+
+    [SerializeField] Collider2D attackBox;
+    bool attackTime = false;
+    [SerializeField] List<EnemyHealth> enemies;
 
     float threshold = 0.001f;
     void Start()
@@ -34,7 +39,7 @@ public class PlayerAnimationConroller : MonoBehaviour
                     */
                 break;
             case false:
-                print(false);
+                //print(false);
                 //if ((body.velocity.x >= -threshold || body.velocity.x <= threshold) && body.velocity.y >= -threshold || body.velocity.y <= 0.01)
                 if (!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D) &&
                     !Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
@@ -48,10 +53,32 @@ public class PlayerAnimationConroller : MonoBehaviour
         playerAttack.CanAttack = false;
         animator.SetBool("Attack", true);
     }
+    public void StartAttack()
+    {
+        attackBox.enabled = true;
+        attackTime = true;
+    }
+    public void MidAttack()
+    {
+        attackBox.enabled = false;
+        attackTime = false;
+        enemies = enemies.Distinct().ToList();
+        foreach (EnemyHealth ele in enemies)
+        {
+            ele.DamageZombie(playerAttack.Damage);
+        }
+        enemies.Clear();
+    }
     public void EndAttack()
     {
         playerMovement.CanMove = true;
         playerAttack.CanAttack = true;
         animator.SetBool("Attack", false);
+    }
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (attackTime)
+            if (other.gameObject.GetComponent<EnemyHealth>() != null)
+                enemies.Add(other.gameObject.GetComponent<EnemyHealth>());
     }
 }
